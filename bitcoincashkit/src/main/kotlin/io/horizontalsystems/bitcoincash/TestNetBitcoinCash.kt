@@ -39,6 +39,7 @@ class TestNetBitcoinCash : Network() {
             timestamp = 1393645018,
             bits = 0x1c0180ab,
             nonce = 634051227,
+        m_chain_number = 0,
             hash = HashUtils.toBytesAsLE("000000000000bbde3a83bd29bc5cacd73f039f345318e7a4088914342c9d259a")
     ), 199584)
 
