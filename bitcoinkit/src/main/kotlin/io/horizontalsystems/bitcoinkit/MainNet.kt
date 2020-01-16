@@ -76,7 +76,7 @@ class MainNet : Network() {
     )
 
     override val bip44CheckpointBlock = Block(BlockHeader(
-            version = 2,
+            version = 541065216,
             previousBlockHeaderHash = HashUtils.toBytesAsLE("000000000019b7c3af53085ee4a38521693e9414c950775c1af5e10f8d81a839"),
             merkleRoot = HashUtils.toBytesAsLE("8c3808e941a250f9f261a8eba1be706293e761ba72292c26f6a79dabb34fef7b"),
             timestamp = 1578912054,
