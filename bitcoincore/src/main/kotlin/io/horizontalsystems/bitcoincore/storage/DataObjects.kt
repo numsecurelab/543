@@ -12,6 +12,7 @@ class BlockHeader(
         val timestamp: Long,
         val bits: Long,
         val nonce: Long,
+        val m_chain_number: Long,
         val hash: ByteArray)
 
 class FullTransaction(val header: Transaction, val inputs: List<TransactionInput>, val outputs: List<TransactionOutput>) {
