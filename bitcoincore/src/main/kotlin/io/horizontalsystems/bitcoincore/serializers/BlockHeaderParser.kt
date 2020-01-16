@@ -23,7 +23,7 @@ class BlockHeaderParser(private val hasher: IHasher) {
         return BlockHeader(version, previousBlockHeaderHash, merkleRoot, timestamp, bits, nonce, m_chain_number, hash)
     }
 
-    private fun serialize(version: Int, previousBlockHeaderHash: ByteArray, merkleRoot: ByteArray, timestamp: Long, bits: Long, m_chain_number: Long, nonce: Long): ByteArray {
+    private fun serialize(version: Int, previousBlockHeaderHash: ByteArray, merkleRoot: ByteArray, timestamp: Long, bits: Long, nonce: Long, m_chain_number: Long): ByteArray {
         return BitcoinOutput()
                 .writeInt(version)
                 .write(previousBlockHeaderHash)
