@@ -46,6 +46,8 @@ object TransactionSerializer {
             }
         }
 
+        transaction.m_nSrcChain = input.readUnsignedInt()
+        transaction.m_nDestChain = input.readUnsignedInt()
         transaction.lockTime = input.readUnsignedInt()
 
         val fullTransaction = FullTransaction(transaction, inputs, outputs)
@@ -85,6 +87,8 @@ object TransactionSerializer {
             transaction.inputs.forEach { buffer.write(InputSerializer.serializeWitness(it.witness)) }
         }
 
+        buffer.writeUnsignedInt(header.m_nSrcChain)
+        buffer.writeUnsignedInt(header.m_nDestChain)
         buffer.writeUnsignedInt(header.lockTime)
         return buffer.toByteArray()
     }
@@ -140,6 +144,8 @@ object TransactionSerializer {
             outputs.forEach { buffer.write(OutputSerializer.serialize(it)) }
         }
 
+        buffer.writeUnsignedInt(transaction.m_nSrcChain)
+        buffer.writeUnsignedInt(transaction.m_nDestChain)
         buffer.writeUnsignedInt(transaction.lockTime)
         return buffer.toByteArray()
     }
