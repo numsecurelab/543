@@ -36,6 +36,7 @@ class MainNetDash : Network() {
             timestamp = 1231006505,
             bits = 486604799,
             nonce = 2083236893,
+        m_chain_number = 0,
             hash = HashUtils.toBytesAsLE("00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6")
     ), 0)
 
