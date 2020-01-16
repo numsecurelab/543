@@ -53,6 +53,7 @@ abstract class Network {
             val timestamp = input.readUnsignedInt()
             val bits = input.readUnsignedInt()
             val nonce = input.readUnsignedInt()
+            val m_chain_number = input.readUnsignedInt()
             val height = input.readInt()
             val hash = input.readBytes(32)
 
@@ -63,6 +64,7 @@ abstract class Network {
                     timestamp = timestamp,
                     bits = bits,
                     nonce = nonce,
+                    m_chain_number = m_chain_number,
                     hash = hash
             ), height)
         }
