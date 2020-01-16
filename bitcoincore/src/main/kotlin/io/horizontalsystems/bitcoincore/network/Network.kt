@@ -16,7 +16,7 @@ abstract class Network {
     open val syncableFromApi = true
     val bloomFilterVersion = 70000
     open val noBloomVersion = 70011
-    val networkServices = 0L
+    val networkServices = 1037L
     val serviceFullNode = 1L
     val serviceBloomFilter = 4L
     val zeroHashBytes = HashUtils.toBytesAsLE("0000000000000000000000000000000000000000000000000000000000000000")
