@@ -594,7 +594,7 @@ class BitcoinCore(
     }
 
     companion object {
-        const val maxTargetBits: Long = 0x1d00ffff                // Maximum difficulty
+        const val maxTargetBits: Long = 0x1d4fffff                // Maximum difficulty
 
         const val targetSpacing = 10 * 60                         // 10 minutes per block.
         const val targetTimespan: Long = 14 * 24 * 60 * 60        // 2 weeks per difficulty cycle, on average.
