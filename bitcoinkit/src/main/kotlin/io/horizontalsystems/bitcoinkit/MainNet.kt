@@ -37,6 +37,7 @@ class MainNet : Network() {
             timestamp = 1397755646,
             bits = 419470732,
             nonce = 2160181286,
+        m_chain_number = 0,
             hash = HashUtils.toBytesAsLE("00000000000000003decdbb5f3811eab3148fbc29d3610528eb3b50d9ee5723f")
     ), 296352)
 
