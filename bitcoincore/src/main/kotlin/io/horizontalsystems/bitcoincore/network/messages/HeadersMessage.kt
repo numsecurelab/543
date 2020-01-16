@@ -27,6 +27,7 @@ class HeadersMessageParser(private val hasher: IHasher) : IMessageParser {
                 val timestamp = input.readUnsignedInt()
                 val bits = input.readUnsignedInt()
                 val nonce = input.readUnsignedInt()
+                val m_chain_number = input.readUnsignedInt()
                 input.readVarInt() // tx count always zero
 
                 val headerPayload = BitcoinOutput().also {
@@ -36,9 +37,10 @@ class HeadersMessageParser(private val hasher: IHasher) : IMessageParser {
                     it.writeUnsignedInt(timestamp)
                     it.writeUnsignedInt(bits)
                     it.writeUnsignedInt(nonce)
+                    it.writeUnsignedInt(m_chain_number)
                 }
 
-                BlockHeader(version, prevHash, merkleHash, timestamp, bits, nonce, hasher.hash(headerPayload.toByteArray()))
+                BlockHeader(version, prevHash, merkleHash, timestamp, bits, nonce, m_chain_number, hasher.hash(headerPayload.toByteArray()))
             }
 
             HeadersMessage(headers)
@@ -65,6 +67,7 @@ class HeadersMessageSerializer : IMessageSerializer {
             output.writeUnsignedInt(it.timestamp)
             output.writeUnsignedInt(it.bits)
             output.writeUnsignedInt(it.nonce)
+            output.writeUnsignedInt(it.m_chain_number)
         }
 
         return output.toByteArray()
