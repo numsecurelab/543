@@ -146,7 +146,7 @@ public final class BitcoinInput implements AutoCloseable {
         if ((ch1 | ch2 | ch3 | ch4) < 0) {
             throw new EOFException();
         }
-        long ln4 = ch4 & 0x0000004fffffffffL;
+        long ln4 = ch4 & 0x00000000ffffffffL;
         return (ln4 << 24) + (ch3 << 16) + (ch2 << 8) + (ch1 << 0);
     }
 
