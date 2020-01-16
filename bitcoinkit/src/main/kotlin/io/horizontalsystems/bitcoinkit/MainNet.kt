@@ -9,7 +9,7 @@ class MainNet : Network() {
     override val protocolVersion = 80000
     override var port: Int = 20445
 
-    override var magic: Long = 0x34feafaaL
+    override var magic: Long = 0x34feafaa
     override var bip32HeaderPub: Int = 0x043410d2   // The 4 byte header that serializes in base58 to "xpub".
     override var bip32HeaderPriv: Int = 0x0434113b  // The 4 byte header that serializes in base58 to "xprv"
     override var addressVersion: Int = 127
