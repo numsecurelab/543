@@ -14,15 +14,16 @@ class BlockHeaderParser(private val hasher: IHasher) {
         val timestamp = input.readUnsignedInt()
         val bits = input.readUnsignedInt()
         val nonce = input.readUnsignedInt()
+        val m_chain_number = input.readUnsignedInt()
 
-        val payload = serialize(version, previousBlockHeaderHash, merkleRoot, timestamp, bits, nonce)
+        val payload = serialize(version, previousBlockHeaderHash, merkleRoot, timestamp, bits, nonce, m_chain_number)
 
         val hash = hasher.hash(payload)
 
-        return BlockHeader(version, previousBlockHeaderHash, merkleRoot, timestamp, bits, nonce, hash)
+        return BlockHeader(version, previousBlockHeaderHash, merkleRoot, timestamp, bits, nonce, m_chain_number, hash)
     }
 
-    private fun serialize(version: Int, previousBlockHeaderHash: ByteArray, merkleRoot: ByteArray, timestamp: Long, bits: Long, nonce: Long): ByteArray {
+    private fun serialize(version: Int, previousBlockHeaderHash: ByteArray, merkleRoot: ByteArray, timestamp: Long, bits: Long, m_chain_number: Long, nonce: Long): ByteArray {
         return BitcoinOutput()
                 .writeInt(version)
                 .write(previousBlockHeaderHash)
@@ -30,6 +31,7 @@ class BlockHeaderParser(private val hasher: IHasher) {
                 .writeUnsignedInt(timestamp)
                 .writeUnsignedInt(bits)
                 .writeUnsignedInt(nonce)
+                .writeUnsignedInt(m_chain_number)
                 .toByteArray()
     }
 }
