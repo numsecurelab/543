@@ -30,6 +30,7 @@ class Block() {
     var timestamp: Long = 0
     var bits: Long = 0
     var nonce: Long = 0
+    var m_chain_number: Long = 0
     var hasTransactions = false
 
     @PrimaryKey
@@ -49,6 +50,7 @@ class Block() {
         timestamp = header.timestamp
         bits = header.bits
         nonce = header.nonce
+        m_chain_number = header.m_chain_number
 
         headerHash = header.hash
         this.height = height
