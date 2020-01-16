@@ -36,6 +36,8 @@ open class Transaction {
 
     var version: Int = 0
     var lockTime: Long = 0
+    var m_nSrcChain: Long = 0
+    var m_nDestChain: Long = 0
     var timestamp: Long = 0
     var order: Int = 0 // topological order
     var isMine = false
@@ -45,9 +47,11 @@ open class Transaction {
     var serializedTxInfo: String = ""
 
     constructor()
-    constructor(version: Int = 0, lockTime: Long = 0) : this() {
+    constructor(version: Int = 0, lockTime: Long = 0, m_nSrcChain: Long = 0, m_nDestChain: Long = 0) : this() {
         this.version = version
         this.lockTime = lockTime
+        this.m_nSrcChain = m_nSrcChain
+        this.m_nDestChain = m_nDestChain
         this.timestamp = Date().time / 1000
     }
 
