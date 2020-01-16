@@ -34,6 +34,7 @@ class RegTest : Network() {
             timestamp = 1296688602,
             bits = 545259519,
             nonce = 2,
+        m_chain_number = 0,
             hash = byteArrayOf()
     ), 0)
 
@@ -44,6 +45,7 @@ class RegTest : Network() {
             timestamp = 1296688602,
             bits = 545259519,
             nonce = 2,
+        m_chain_number = 0,
             hash = byteArrayOf()
     ), 0)
 
