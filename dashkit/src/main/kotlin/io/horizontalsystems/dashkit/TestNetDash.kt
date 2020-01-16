@@ -35,6 +35,7 @@ class TestNetDash : Network() {
             timestamp = 1231006505,
             bits = 486604799,
             nonce = 2083236893,
+        m_chain_number = 0,
             hash = HashUtils.toBytesAsLE("00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c")
     ), 0)
 
