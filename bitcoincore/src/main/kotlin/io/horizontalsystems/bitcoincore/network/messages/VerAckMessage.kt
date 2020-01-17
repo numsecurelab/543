@@ -1,9 +1,6 @@
 package io.horizontalsystems.bitcoincore.network.messages
-import java.io.ByteArrayInputStream
-import io.horizontalsystems.bitcoincore.io.BitcoinInput
-import io.horizontalsystems.bitcoincore.io.BitcoinOutput
 
-class VerAckMessage(val vKnownChains: Long) : IMessage {
+class VerAckMessage : IMessage {
     override fun toString(): String {
         return "VerAckMessage()"
     }
@@ -13,10 +10,7 @@ class VerAckMessageParser : IMessageParser {
     override val command: String = "verack"
 
     override fun parseMessage(payload: ByteArray): IMessage {
-        BitcoinInput(ByteArrayInputStream(payload)).use { input ->
-            val vKnownChains = input.readUnsignedInt()
-            return PongMessage(vKnownChains)
-        }
+        return VerAckMessage()
     }
 }
 
@@ -28,8 +22,6 @@ class VerAckMessageSerializer : IMessageSerializer {
             return null
         }
 
-        return BitcoinOutput()
-                .writeUnsignedInt(message.vKnownChains)
-                .toByteArray()
+        return ByteArray(0)
     }
 }
