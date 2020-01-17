@@ -64,7 +64,7 @@ class VersionMessageParser : IMessageParser {
 
             val versionMessage = VersionMessage(protocolVersion, services, timestamp, recipientAddress)
 
-            if (protocolVersion >= 106) {
+            if (protocolVersion >= 1010602) {
                 versionMessage.senderAddress = NetworkAddress.parse(input, true)
                 versionMessage.nonce = input.readLong()
                 versionMessage.subVersion = input.readString()
@@ -94,7 +94,7 @@ class VersionMessageSerializer : IMessageSerializer {
                 .writeLong(message.services)
                 .writeLong(message.timestamp)
                 .write(message.recipientAddress.toByteArray(true))
-        if (message.protocolVersion >= 106) {
+        if (message.protocolVersion >= 1010602) {
             output.write(message.senderAddress.toByteArray(true))
                     .writeLong(message.nonce)
                     .writeString(message.subVersion)
