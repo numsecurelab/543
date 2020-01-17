@@ -20,7 +20,7 @@ class InputSigner(private val hdWallet: HDWallet, val network: Network) {
             throw Error.NoPrivateKey()
         }
 
-        val txContent = TransactionSerializer.serializeForSignature(transaction, inputsToSign, outputs, index, prevOutput.scriptType.isWitness) + byteArrayOf(network.sigHashValue, 0, 0, 0)
+        val txContent = TransactionSerializer.serializeForSignature(transaction, inputsToSign, outputs, index, prevOutput.scriptType.isWitness) + byteArrayOf(network.sigHashValue, 0, 0, 0, 0, 0)
         val signature = privateKey.createSignature(txContent) + network.sigHashValue
 
         return when {
