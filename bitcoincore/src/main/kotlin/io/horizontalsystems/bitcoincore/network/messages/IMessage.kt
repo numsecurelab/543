@@ -19,7 +19,6 @@ interface IMessageSerializer {
     val command: String
     fun serialize(message: IMessage): ByteArray?
 }
-var vKnownChains: Long = 0
 
 class NetworkMessageParser(private val magic: Long) {
     private var messageParsers = hashMapOf<String, IMessageParser>()
@@ -85,18 +84,15 @@ class NetworkMessageSerializer(private val magic: Long) {
 
     fun serialize(msg: IMessage): ByteArray {
         var payload: ByteArray? = null
-        
         var serializer: IMessageSerializer? = null
 
         for (item in messageSerializers) {
             payload = item.serialize(msg)
-           
 
             if (payload != null) {
                 serializer = item
                 break
             }
-            
         }
 
         if (payload == null || serializer == null) {
@@ -109,7 +105,6 @@ class NetworkMessageSerializer(private val magic: Long) {
                 .writeInt(payload.size)         // length: uint32_t
                 .write(getCheckSum(payload))    // checksum: uint32_t
                 .write(payload)                 // payload:
-                .writeUnsignedInt(vKnownChains)
                 .toByteArray()
     }
 
