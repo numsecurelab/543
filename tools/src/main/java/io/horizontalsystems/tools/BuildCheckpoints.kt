@@ -78,6 +78,7 @@ class BuildCheckpoints : CheckpointSyncer.Listener {
             it.writeUnsignedInt(block.timestamp)
             it.writeUnsignedInt(block.bits)
             it.writeUnsignedInt(block.nonce)
+            it.writeUnsignedInt(block.m_chain_number)
             it.writeInt(block.height)
             it.write(block.headerHash)
         }
