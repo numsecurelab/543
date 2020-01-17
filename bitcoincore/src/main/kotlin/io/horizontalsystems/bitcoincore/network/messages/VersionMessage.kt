@@ -23,7 +23,7 @@ class VersionMessage(val protocolVersion: Int, val services: Long, val timestamp
 
     // Whether or not to relay tx invs before a filter is received.
     // See <a href="https://github.com/bitcoin/bips/blob/master/bip-0037.mediawiki#extensions-to-existing-messages">BIP 37</a>.
-    var relay = false
+    var relay = true
 
     var vKnownChains: Long = 0
 
@@ -64,7 +64,7 @@ class VersionMessageParser : IMessageParser {
 
             val versionMessage = VersionMessage(protocolVersion, services, timestamp, recipientAddress)
 
-            if (protocolVersion >= 1010602) {
+            if (protocolVersion >= 106) {
                 versionMessage.senderAddress = NetworkAddress.parse(input, true)
                 versionMessage.nonce = input.readLong()
                 versionMessage.subVersion = input.readString()
@@ -94,7 +94,7 @@ class VersionMessageSerializer : IMessageSerializer {
                 .writeLong(message.services)
                 .writeLong(message.timestamp)
                 .write(message.recipientAddress.toByteArray(true))
-        if (message.protocolVersion >= 1010602) {
+        if (message.protocolVersion >= 106) {
             output.write(message.senderAddress.toByteArray(true))
                     .writeLong(message.nonce)
                     .writeString(message.subVersion)
