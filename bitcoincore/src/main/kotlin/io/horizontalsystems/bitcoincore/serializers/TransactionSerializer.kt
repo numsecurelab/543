@@ -22,7 +22,7 @@ object TransactionSerializer {
         val marker = 0xff and input.readUnsignedByte()
         val inputCount = if (marker == 0) {  // segwit marker: 0x00
             input.read()  // skip segwit flag: 0x01
-            transaction.segwit = false
+            transaction.segwit = true
             input.readVarInt()
         } else {
             input.readVarInt(marker)
@@ -39,7 +39,12 @@ object TransactionSerializer {
             outputs.add(OutputSerializer.deserialize(input, i))
         }
 
-
+        //  extract witness data
+        if (transaction.segwit) {
+            inputs.forEach {
+                it.witness = InputSerializer.deserializeWitness(input)
+            }
+        }
 
         transaction.m_nSrcChain = input.readUnsignedInt()
         transaction.m_nDestChain = input.readUnsignedInt()
@@ -59,12 +64,15 @@ object TransactionSerializer {
         return fullTransaction
     }
 
-    fun serialize(transaction: FullTransaction, withWitness: Boolean = false): ByteArray {
+    fun serialize(transaction: FullTransaction, withWitness: Boolean = true): ByteArray {
         val header = transaction.header
         val buffer = BitcoinOutput()
         buffer.writeInt(header.version)
 
-
+        if (header.segwit && withWitness) {
+            buffer.writeByte(0) // marker 0x00
+            buffer.writeByte(1) // flag 0x01
+        }
 
         // inputs
         buffer.writeVarInt(transaction.inputs.size.toLong())
@@ -74,7 +82,10 @@ object TransactionSerializer {
         buffer.writeVarInt(transaction.outputs.size.toLong())
         transaction.outputs.forEach { buffer.write(OutputSerializer.serialize(it)) }
 
-
+        //  serialize witness data
+        if (header.segwit && withWitness) {
+            transaction.inputs.forEach { buffer.write(InputSerializer.serializeWitness(it.witness)) }
+        }
 
         buffer.writeUnsignedInt(header.m_nSrcChain)
         buffer.writeUnsignedInt(header.m_nDestChain)
@@ -84,7 +95,7 @@ object TransactionSerializer {
 
     fun serializeForSignature(transaction: Transaction, inputsToSign: List<InputToSign>, outputs: List<TransactionOutput>, inputIndex: Int): ByteArray {
         val buffer = BitcoinOutput().writeInt(transaction.version)
-
+        
             // inputs
             buffer.writeVarInt(inputsToSign.size.toLong())
             inputsToSign.forEachIndexed { index, input ->
@@ -94,7 +105,7 @@ object TransactionSerializer {
             // outputs
             buffer.writeVarInt(outputs.size.toLong())
             outputs.forEach { buffer.write(OutputSerializer.serialize(it)) }
-
+        
 
         buffer.writeUnsignedInt(transaction.m_nSrcChain)
         buffer.writeUnsignedInt(transaction.m_nDestChain)
