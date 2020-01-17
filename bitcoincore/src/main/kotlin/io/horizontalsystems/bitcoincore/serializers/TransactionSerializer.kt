@@ -21,8 +21,8 @@ object TransactionSerializer {
 
         val marker = 0xff and input.readUnsignedByte()
         val inputCount = if (marker == 0) {  // segwit marker: 0x00
-            input.readByte(0)  // skip segwit flag: 0x01
-            transaction.segwit = true
+            input.read()  // skip segwit flag: 0x01
+            transaction.segwit = false
             input.readVarInt()
         } else {
             input.readVarInt(marker)
@@ -39,12 +39,7 @@ object TransactionSerializer {
             outputs.add(OutputSerializer.deserialize(input, i))
         }
 
-        //  extract witness data
-        if (transaction.segwit) {
-            inputs.forEach {
-                it.witness = InputSerializer.deserializeWitness(input)
-            }
-        }
+        
 
         transaction.m_nSrcChain = input.readUnsignedInt()
         transaction.m_nDestChain = input.readUnsignedInt()
