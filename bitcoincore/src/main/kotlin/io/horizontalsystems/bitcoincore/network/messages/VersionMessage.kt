@@ -23,7 +23,7 @@ class VersionMessage(val protocolVersion: Int, val services: Long, val timestamp
 
     // Whether or not to relay tx invs before a filter is received.
     // See <a href="https://github.com/bitcoin/bips/blob/master/bip-0037.mediawiki#extensions-to-existing-messages">BIP 37</a>.
-    var relay = false
+    var relay = true
 
     constructor(bestBlock: Int, recipientAddr: InetAddress, network: Network) : this(network.protocolVersion, network.networkServices, System.currentTimeMillis() / 1000, NetworkAddress(recipientAddr, network)) {
         lastBlock = bestBlock
