@@ -118,7 +118,7 @@ class Peer(
 
         announcedLastBlockHeight = message.lastBlock
 
-        peerConnection.sendMessage(VerAckMessage())
+        peerConnection.sendMessage(VerAckMessage(vKnownChains = 0))
     } catch (e: Error.UnsuitablePeerVersion) {
         close(e)
     }
