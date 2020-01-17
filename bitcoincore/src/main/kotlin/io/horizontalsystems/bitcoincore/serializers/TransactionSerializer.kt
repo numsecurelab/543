@@ -71,7 +71,7 @@ object TransactionSerializer {
 
         if (header.segwit && withWitness) {
             buffer.writeByte(0) // marker 0x00
-            buffer.writeByte(0) // flag 0x01
+            buffer.writeByte(1) // flag 0x01
         }
 
         // inputs
