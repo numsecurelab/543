@@ -38,7 +38,7 @@ abstract class Network {
     open val lastCheckpointBlock: Block = readLastCheckpoint()
 
     open val sigHashForked: Boolean = false
-    open val sigHashValue = Sighash.ALL
+    open val sigHashValue = Sighash.SINGLE
 
     private fun readLastCheckpoint(): Block {
         val stream = javaClass.classLoader?.getResourceAsStream("${javaClass.simpleName}.checkpoint")
