@@ -182,7 +182,5 @@ public final class BitcoinInput implements AutoCloseable {
         in.close();
     }
 
-    public void readByte(int i) {
-
-    }
+    
 }
