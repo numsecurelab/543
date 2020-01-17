@@ -16,14 +16,16 @@ class VersionMessage(val protocolVersion: Int, val services: Long, val timestamp
     var nonce = 0L
 
     // User-Agent as defined in <a href="https://github.com/bitcoin/bips/blob/master/bip-0014.mediawiki">BIP 14</a>.
-    var subVersion = "/TKEYSPACE:1.1.2.6/"
+    var subVersion = "/TKEYSPACE:1.1.2.4/"
 
     // How many blocks are in the chain, according to the other side.
     var lastBlock: Int = 0
 
     // Whether or not to relay tx invs before a filter is received.
     // See <a href="https://github.com/bitcoin/bips/blob/master/bip-0037.mediawiki#extensions-to-existing-messages">BIP 37</a>.
-    var relay = true
+    var relay = false
+
+    var vKnownChains: Long = 0
 
     constructor(bestBlock: Int, recipientAddr: InetAddress, network: Network) : this(network.protocolVersion, network.networkServices, System.currentTimeMillis() / 1000, NetworkAddress(recipientAddr, network)) {
         lastBlock = bestBlock
@@ -69,6 +71,7 @@ class VersionMessageParser : IMessageParser {
                 versionMessage.lastBlock = input.readInt()
                 if (protocolVersion >= 70001) {
                     versionMessage.relay = input.readByte().toInt() != 0
+                    versionMessage.vKnownChains = input.readUnsignedInt()
                 }
             }
 
@@ -98,6 +101,7 @@ class VersionMessageSerializer : IMessageSerializer {
                     .writeInt(message.lastBlock)
             if (message.protocolVersion >= 70001) {
                 output.writeByte(1)
+                output.writeUnsignedInt(message.vKnownChains)
             }
         }
 
