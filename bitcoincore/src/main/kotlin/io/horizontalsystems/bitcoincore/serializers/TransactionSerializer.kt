@@ -39,12 +39,7 @@ object TransactionSerializer {
             outputs.add(OutputSerializer.deserialize(input, i))
         }
 
-        //  extract witness data
-        if (transaction.segwit) {
-            inputs.forEach {
-                it.witness = InputSerializer.deserializeWitness(input)
-            }
-        }
+
 
         transaction.m_nSrcChain = input.readUnsignedInt()
         transaction.m_nDestChain = input.readUnsignedInt()
