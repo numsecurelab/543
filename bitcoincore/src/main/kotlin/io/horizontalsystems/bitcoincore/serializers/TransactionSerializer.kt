@@ -39,12 +39,7 @@ object TransactionSerializer {
             outputs.add(OutputSerializer.deserialize(input, i))
         }
 
-        //  extract witness data
-        if (transaction.segwit) {
-            inputs.forEach {
-                it.witness = InputSerializer.deserializeWitness(input)
-            }
-        }
+        
 
         transaction.m_nSrcChain = input.readUnsignedInt()
         transaction.m_nDestChain = input.readUnsignedInt()
@@ -95,7 +90,7 @@ object TransactionSerializer {
 
     fun serializeForSignature(transaction: Transaction, inputsToSign: List<InputToSign>, outputs: List<TransactionOutput>, inputIndex: Int): ByteArray {
         val buffer = BitcoinOutput().writeInt(transaction.version)
-        
+
             // inputs
             buffer.writeVarInt(inputsToSign.size.toLong())
             inputsToSign.forEachIndexed { index, input ->
@@ -105,7 +100,7 @@ object TransactionSerializer {
             // outputs
             buffer.writeVarInt(outputs.size.toLong())
             outputs.forEach { buffer.write(OutputSerializer.serialize(it)) }
-        
+
 
         buffer.writeUnsignedInt(transaction.m_nSrcChain)
         buffer.writeUnsignedInt(transaction.m_nDestChain)
