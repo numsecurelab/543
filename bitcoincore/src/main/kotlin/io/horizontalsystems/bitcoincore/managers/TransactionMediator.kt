@@ -32,7 +32,7 @@ class TransactionMediator {
             return ConflictResolution.ACCEPT
 
         if (receivedTransaction.header.blockHash != null) {
-            updateConflictingTxHash(conflictingTransactions, receivedTransaction.header.hash)
+           // updateConflictingTxHash(conflictingTransactions, receivedTransaction.header.hash)
 
             return ConflictResolution.ACCEPT
         }
