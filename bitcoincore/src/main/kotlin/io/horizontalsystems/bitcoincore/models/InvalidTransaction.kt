@@ -21,6 +21,7 @@ class InvalidTransaction : Transaction {
         isOutgoing = transaction.isOutgoing
         segwit = transaction.segwit
         status = Status.INVALID
+        conflictingTxHash = transaction.conflictingTxHash
 
         this.serializedTxInfo = serializedTxInfo
     }
