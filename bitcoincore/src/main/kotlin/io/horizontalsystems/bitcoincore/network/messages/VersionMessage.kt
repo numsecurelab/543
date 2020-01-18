@@ -16,7 +16,7 @@ class VersionMessage(val protocolVersion: Int, val services: Long, val timestamp
     var nonce = 0L
 
     // User-Agent as defined in <a href="https://github.com/bitcoin/bips/blob/master/bip-0014.mediawiki">BIP 14</a>.
-    var subVersion = "/TKEYSPACE:1.1.2.6/"
+    var subVersion = "/CryptoGramm:1.1.7.7/"
 
     // How many blocks are in the chain, according to the other side.
     var lastBlock: Int = 0
