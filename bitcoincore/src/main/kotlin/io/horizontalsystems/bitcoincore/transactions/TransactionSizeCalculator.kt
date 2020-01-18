@@ -9,7 +9,7 @@ class TransactionSizeCalculator {
     val pubKeyLength = 33 + 1         // pubKey length + pushByte
     private val p2wpkhShLength = 22 + 1       // 0014<20-byte-script-hash> + pushByte
 
-    private val legacyTx = 16 + 4 + 4 + 16    // 40 Version + number of inputs + number of outputs + locktime
+    private val legacyTx = 16 + 4 + 4 + 16 + 16 + 16   // 40 Version + number of inputs + number of outputs + locktime + srchain + dschain
     private val legacyWitnessData = 1         // 1 Only 0x00 for legacy input
     private val witnessTx = legacyTx + 1 + 1  // 42 segwit marker + segwit flag
     private val witnessData = 1 + signatureLength + pubKeyLength  // 108 Number of stack items for input + Size of stack item 0 + Stack item 0, signature + Size of stack item 1 + Stack item 1, pubkey
