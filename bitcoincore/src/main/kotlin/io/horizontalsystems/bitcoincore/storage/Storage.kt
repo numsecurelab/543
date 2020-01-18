@@ -265,6 +265,14 @@ open class Storage(protected open val store: CoreDatabase) : IStorage {
     override fun isTransactionExists(hash: ByteArray): Boolean {
         return store.transaction.getByHash(hash) != null
     }
+    
+    override fun getConflictingTransactions(transaction: FullTransaction): List<Transaction> {
+        return transaction.inputs.mapNotNull { input ->
+            store.input.getInput(input.previousOutputTxHash, input.previousOutputIndex)?.transactionHash?.let { txHash ->
+                store.transaction.getByHash(txHash)
+            }
+        }.filter { !it.hash.contentEquals(transaction.header.hash) }
+    }
 
     // InvalidTransaction
 
