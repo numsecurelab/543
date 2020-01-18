@@ -38,7 +38,7 @@ open class Transaction {
     var lockTime: Long = 0
     var m_nSrcChain: Long = 0
     var m_nDestChain: Long = 0
-    var timestamp: Long = 0
+    var timestamp: Long = Date().time / 1000
     var order: Int = 0 // topological order
     var isMine = false
     var isOutgoing = false
@@ -53,7 +53,7 @@ open class Transaction {
         this.lockTime = lockTime
         this.m_nSrcChain = m_nSrcChain
         this.m_nDestChain = m_nDestChain
-        this.timestamp = Date().time / 1000
+      
     }
 
     object Status {
