@@ -93,7 +93,7 @@ object TransactionSerializer {
         return buffer.toByteArray()
     }
 
-    fun serializeForSignature(transaction: Transaction, inputsToSign: List<InputToSign>, outputs: List<TransactionOutput>, inputIndex: Int, isWitness: Boolean = false): ByteArray {
+    fun serializeForSignature(transaction: Transaction, inputsToSign: List<InputToSign>, outputs: List<TransactionOutput>, inputIndex: Int, isWitness: Boolean = true): ByteArray {
         val buffer = BitcoinOutput().writeInt(transaction.version)
         if (isWitness) {
             val outpoints = BitcoinOutput()
