@@ -52,7 +52,7 @@ object TransactionSerializer {
 
         val fullTransaction = FullTransaction(transaction, inputs, outputs)
 
-        fullTransaction.header.hash = HashUtils.doubleSha256(serialize(fullTransaction, withWitness = false))
+        fullTransaction.header.hash = HashUtils.doubleSha256(serialize(fullTransaction, withWitness = true))
         fullTransaction.inputs.forEach {
             it.transactionHash = fullTransaction.header.hash
         }
