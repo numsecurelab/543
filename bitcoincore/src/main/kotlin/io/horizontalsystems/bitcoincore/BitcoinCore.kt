@@ -147,6 +147,7 @@ class BitcoinCoreBuilder {
         val hdWallet = HDWallet(seed, network.coinType, purpose = bip.purpose)
 
         val publicKeyManager = PublicKeyManager.create(storage, hdWallet, restoreKeyConverterChain)
+        val pendingOutpointsProvider = PendingOutpointsProvider(storage)
 
         val irregularOutputFinder = IrregularOutputFinder(storage)
         val transactionOutputsCache = OutputsCache.create(storage)
@@ -226,6 +227,7 @@ class BitcoinCoreBuilder {
         val watchedTransactionManager = WatchedTransactionManager()
         bloomFilterManager.addBloomFilterProvider(watchedTransactionManager)
         bloomFilterManager.addBloomFilterProvider(publicKeyManager)
+        bloomFilterManager.addBloomFilterProvider(pendingOutpointsProvider)
         bloomFilterManager.addBloomFilterProvider(irregularOutputFinder)
 
         bitcoinCore.watchedTransactionManager = watchedTransactionManager
@@ -596,7 +598,7 @@ class BitcoinCore(
     }
 
     companion object {
-        const val maxTargetBits: Long = 0x1d4fffff                // Maximum difficulty
+        const val maxTargetBits: Long = 0x1d00ffff                // Maximum difficulty
 
         const val targetSpacing = 10 * 60                         // 10 minutes per block.
         const val targetTimespan: Long = 14 * 24 * 60 * 60        // 2 weeks per difficulty cycle, on average.
