@@ -265,7 +265,7 @@ open class Storage(protected open val store: CoreDatabase) : IStorage {
     override fun isTransactionExists(hash: ByteArray): Boolean {
         return store.transaction.getByHash(hash) != null
     }
-    
+
     override fun getConflictingTransactions(transaction: FullTransaction): List<Transaction> {
         return transaction.inputs.mapNotNull { input ->
             store.input.getInput(input.previousOutputTxHash, input.previousOutputIndex)?.transactionHash?.let { txHash ->
@@ -274,7 +274,15 @@ open class Storage(protected open val store: CoreDatabase) : IStorage {
         }.filter { !it.hash.contentEquals(transaction.header.hash) }
     }
 
+    override fun getIncomingPendingTxHashes(): List<ByteArray> {
+        return store.transaction.getIncomingPendingTxHashes()
+    }
+
     // InvalidTransaction
+
+    override fun getInvalidTransaction(hash: ByteArray): InvalidTransaction? {
+        return store.transaction.getInvalidTransaction(hash)
+    }
 
     override fun moveTransactionToInvalidTransactions(invalidTransactions: List<InvalidTransaction>) {
         store.runInTransaction {
@@ -328,6 +336,10 @@ open class Storage(protected open val store: CoreDatabase) : IStorage {
 
     override fun getTransactionInputs(txHash: ByteArray): List<TransactionInput> {
         return store.input.getTransactionInputs(txHash)
+    }
+
+    override fun getTransactionInputs(txHashes: List<ByteArray>): List<TransactionInput> {
+        return store.input.getTransactionInputs(txHashes)
     }
 
     override fun getTransactionInputsByPrevOutputTxHash(txHash: ByteArray): List<TransactionInput> {
