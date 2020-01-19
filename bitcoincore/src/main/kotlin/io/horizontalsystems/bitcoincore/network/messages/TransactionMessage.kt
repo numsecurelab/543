@@ -8,7 +8,7 @@ import java.io.ByteArrayInputStream
 
 class TransactionMessage(var transaction: FullTransaction, val size: Int) : IMessage {
     override fun toString(): String {
-        return "TransactionMessage(${transaction.header.hash.toReversedHex()})"
+        return "TransactionMessage(${transaction.header.hash.toReversedHex() + transaction.header.m_nDestChain.toBigInteger()})"
     }
 }
 
