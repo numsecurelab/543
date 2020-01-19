@@ -8,12 +8,14 @@ import java.io.ByteArrayInputStream
 
 class InvMessage : IMessage {
     var inventory: List<InventoryItem>
+    var m_nDestChain: Long = 0
 
-    constructor(type: Int, hash: ByteArray) {
+    constructor(type: Int, hash: ByteArray, m_nDestChain: Long) {
         val inv = InventoryItem()
         inv.type = type
         inv.hash = hash
         inventory = listOf(inv)
+        this.m_nDestChain = m_nDestChain
     }
 
     constructor(inventory: List<InventoryItem>) {
