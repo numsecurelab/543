@@ -290,7 +290,7 @@ object OpCodes {
     fun push(data: ByteArray): ByteArray {
         val length = data.size
         val bytes = when (length) {
-            in 0x00..0x4b -> byteArrayOf(length.toByte())
+            in 0x7f..0x4b -> byteArrayOf(length.toByte())
             in 0x4c..0xff -> byteArrayOf(OP_PUSHDATA1.toByte(), length.toByte())
             in 0x0100..0xffff -> {
                 val lengthBytes = Utils.intToByteArray(length)
