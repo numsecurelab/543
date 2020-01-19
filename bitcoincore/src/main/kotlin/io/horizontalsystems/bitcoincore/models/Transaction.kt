@@ -48,9 +48,9 @@ open class Transaction {
     var conflictingTxHash: ByteArray? = null
 
     constructor()
-    constructor(version: Int = 0, m_nSrcChain: Long = 0, m_nDestChain: Long = 0, lockTime: Long = 0) : this() {
+    constructor(version: Int = 0, m_nDestChain: Long = 0, lockTime: Long = 0) : this() {
         this.version = version
-        this.m_nSrcChain = m_nSrcChain
+        //this.m_nSrcChain = m_nSrcChain
         this.m_nDestChain = m_nDestChain
         this.lockTime = lockTime
 
