@@ -24,7 +24,7 @@ class InvMessage : IMessage {
 
     override fun toString(): String {
         val invList = inventory.take(10)
-                .map { inv -> inv.type.toString() + ":" + inv.hash.toReversedHex() }
+                .map { inv -> inv.type.toString() + ":" + inv.hash.toReversedHex() + m_nDestChain.toBigInteger() }
                 .toTypedArray()
                 .joinToString()
 
