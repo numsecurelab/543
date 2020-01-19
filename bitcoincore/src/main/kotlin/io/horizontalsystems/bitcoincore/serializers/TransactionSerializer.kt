@@ -52,7 +52,7 @@ object TransactionSerializer {
 
         val fullTransaction = FullTransaction(transaction, inputs, outputs)
 
-        fullTransaction.header.hash = HashUtils.doubleSha256(serialize(fullTransaction))
+        fullTransaction.header.hash = HashUtils.doubleSha256(serialize(fullTransaction, withWitness = false))
         fullTransaction.inputs.forEach {
             it.transactionHash = fullTransaction.header.hash
         }
@@ -64,11 +64,16 @@ object TransactionSerializer {
         return fullTransaction
     }
 
-    fun serialize(transaction: FullTransaction): ByteArray {
+    fun serialize(transaction: FullTransaction, withWitness: Boolean = true): ByteArray {
         val header = transaction.header
         val buffer = BitcoinOutput()
         buffer.writeInt(header.version)
-        
+
+        if (header.segwit && withWitness) {
+            buffer.writeByte(0) // marker 0x00
+            buffer.writeByte(1) // flag 0x01
+        }
+
         // inputs
         buffer.writeVarInt(transaction.inputs.size.toLong())
         transaction.inputs.forEach { buffer.write(InputSerializer.serialize(it)) }
@@ -76,6 +81,11 @@ object TransactionSerializer {
         // outputs
         buffer.writeVarInt(transaction.outputs.size.toLong())
         transaction.outputs.forEach { buffer.write(OutputSerializer.serialize(it)) }
+
+        //  serialize witness data
+        if (header.segwit && withWitness) {
+            transaction.inputs.forEach { buffer.write(InputSerializer.serializeWitness(it.witness)) }
+        }
 
         buffer.writeUnsignedInt(header.m_nSrcChain)
         buffer.writeUnsignedInt(header.m_nDestChain)
