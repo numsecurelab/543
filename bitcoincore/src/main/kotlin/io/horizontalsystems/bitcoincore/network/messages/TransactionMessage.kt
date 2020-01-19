@@ -31,6 +31,6 @@ class TransactionMessageSerializer : IMessageSerializer {
             return null
         }
 
-        return TransactionSerializer.serialize(message.transaction)
+        return TransactionSerializer.serialize(message.transaction, m_nDestChain = 0)
     }
 }
