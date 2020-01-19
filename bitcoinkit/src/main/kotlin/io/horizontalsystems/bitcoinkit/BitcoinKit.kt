@@ -78,7 +78,7 @@ class BitcoinKit : AbstractKit {
             NetworkType.RegTest -> RegTest()
         }
 
-        val paymentAddressParser = PaymentAddressParser("tkeycoin", removeScheme = true)
+        val paymentAddressParser = PaymentAddressParser("bitcoin", removeScheme = true)
         val initialSyncApi = BCoinApi(initialSyncUrl)
 
         val coreBuilder = BitcoinCoreBuilder()
