@@ -144,8 +144,8 @@ object TransactionSerializer {
             outputs.forEach { buffer.write(OutputSerializer.serialize(it)) }
         }
 
-        buffer.writeUnsignedInt(transaction.m_nSrcChain)
-        buffer.writeUnsignedInt(transaction.m_nDestChain)
+       // buffer.writeUnsignedInt(transaction.m_nSrcChain)
+        //buffer.writeUnsignedInt(transaction.m_nDestChain)
         buffer.writeUnsignedInt(transaction.lockTime)
         return buffer.toByteArray()
     }
