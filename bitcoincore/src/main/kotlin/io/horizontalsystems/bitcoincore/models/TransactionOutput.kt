@@ -54,7 +54,7 @@ class TransactionOutput {
     var signatureScriptFunction: ((List<ByteArray>) -> ByteArray)? = null
 
     constructor()
-    constructor(value: Long, index: Int, script: ByteArray, type: ScriptType = ScriptType.P2SH, address: String? = null, keyHash: ByteArray? = null, publicKey: PublicKey? = null) {
+    constructor(value: Long, index: Int, script: ByteArray, type: ScriptType = ScriptType.UNKNOWN, address: String? = null, keyHash: ByteArray? = null, publicKey: PublicKey? = null) {
         this.value = value
         this.lockingScript = script
         this.index = index
