@@ -8,7 +8,7 @@ class CoinbaseTransactionSerializer {
     fun serialize(coinbaseTransaction: CoinbaseTransaction): ByteArray {
         val output = BitcoinOutput()
 
-        output.write(TransactionSerializer.serialize(coinbaseTransaction.transaction))
+        output.write(TransactionSerializer.serialize(coinbaseTransaction.transaction, m_nDestChain = 0))
         output.writeVarInt(coinbaseTransaction.coinbaseTransactionSize)
         output.writeUnsignedShort(coinbaseTransaction.version)
         output.writeUnsignedInt(coinbaseTransaction.height)
