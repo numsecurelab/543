@@ -21,7 +21,7 @@ object TransactionSerializer {
 
         val marker = 0xff and input.readUnsignedByte()
         val inputCount = if (marker == 0) {  // segwit marker: 0x00
-            input.read()  // skip segwit flag: 0x01
+            input.readByte()  // skip segwit flag: 0x01
             transaction.segwit = true
             input.readVarInt()
         } else {
@@ -52,7 +52,7 @@ object TransactionSerializer {
 
         val fullTransaction = FullTransaction(transaction, inputs, outputs)
 
-        fullTransaction.header.hash = HashUtils.doubleSha256(serialize(fullTransaction, withWitness = false))
+        fullTransaction.header.hash = HashUtils.doubleSha256(serialize(fullTransaction, withWitness = false, m_nDestChain = 0))
         fullTransaction.inputs.forEach {
             it.transactionHash = fullTransaction.header.hash
         }
@@ -64,7 +64,7 @@ object TransactionSerializer {
         return fullTransaction
     }
 
-    fun serialize(transaction: FullTransaction, withWitness: Boolean = true): ByteArray {
+    fun serialize(transaction: FullTransaction, withWitness: Boolean = true, m_nDestChain: Long = 0): ByteArray {
         val header = transaction.header
         val buffer = BitcoinOutput()
         buffer.writeInt(header.version)
