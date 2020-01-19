@@ -143,7 +143,7 @@ class TransactionExtractor(private val addressConverter: IAddressConverter, priv
     // 25 bytes script: 76 A9 14 {20-byte-key-hash} 88 AC
     private fun isP2PKH(lockingScript: ByteArray): Boolean {
         return (lockingScript.size == 25 &&
-                //lockingScript[0] == OP_DUP.toByte() &&
+                lockingScript[0] == OP_DUP.toByte() &&
                 lockingScript[1] == OP_HASH160.toByte() &&
                 lockingScript[2] == 20.toByte() &&
                 lockingScript[23] == OP_EQUALVERIFY.toByte() &&
