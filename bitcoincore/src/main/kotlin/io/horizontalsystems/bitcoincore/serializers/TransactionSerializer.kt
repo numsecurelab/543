@@ -20,7 +20,7 @@ object TransactionSerializer {
         transaction.version = input.readInt()
 
         val marker = 0xff and input.readUnsignedByte()
-        val inputCount = if (marker == 0) {  // segwit marker: 0x00
+        val inputCount = if (marker == 1) {  // segwit marker: 0x00
             input.read()  // skip segwit flag: 0x01
             transaction.segwit = true
             input.readVarInt()
