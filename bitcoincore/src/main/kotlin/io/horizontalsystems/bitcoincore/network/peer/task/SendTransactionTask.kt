@@ -18,7 +18,7 @@ class SendTransactionTask(val transaction: FullTransaction) : PeerTask() {
         get() = "transaction: ${transaction.header.hash.toReversedHex()}"
 
     override fun start() {
-        requester?.send(InvMessage(InventoryItem.MSG_TX, transaction.header.hash))
+        requester?.send(InvMessage(InventoryItem.MSG_TX, transaction.header.hash, transaction.header.m_nDestChain))
         resetTimer()
     }
 
