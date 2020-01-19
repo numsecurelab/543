@@ -12,9 +12,9 @@ class InvalidTransaction : Transaction {
         hash = transaction.hash
         blockHash = transaction.blockHash
         version = transaction.version
+        lockTime = transaction.lockTime
         m_nSrcChain = transaction.m_nSrcChain
         m_nDestChain = transaction.m_nDestChain
-        lockTime = transaction.lockTime
         timestamp = transaction.timestamp
         order = transaction.order
         isMine = transaction.isMine
