@@ -19,7 +19,7 @@ class FullTransaction(val header: Transaction, val inputs: List<TransactionInput
 
     init {
         if (header.hash.isEmpty()) {
-            header.hash = HashUtils.doubleSha256(TransactionSerializer.serialize(this, withWitness = false))
+            header.hash = HashUtils.doubleSha256(TransactionSerializer.serialize(this, m_nDestChain = 0, withWitness = false))
         }
 
         inputs.forEach {
