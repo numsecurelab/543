@@ -29,7 +29,7 @@ class MempoolTransactions(
         val transactionHashes = mutableListOf<ByteArray>()
 
         inventoryItems.forEach { item ->
-            if (item.type == InventoryItem.MSG_TX
+            if (item.type == InventoryItem.MSG_TX || item.type == InventoryItem.MSG_WITNESS_TX
                     && !isTransactionRequested(item.hash)
                     && transactionSyncer.shouldRequestTransaction(item.hash)) {
                 transactionHashes.add(item.hash)
