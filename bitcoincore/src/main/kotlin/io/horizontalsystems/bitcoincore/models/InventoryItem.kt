@@ -49,6 +49,8 @@ class InventoryItem {
          */
         val MSG_TX = 1
 
+        val MSG_WITNESS_TX = 0x40000001
+
         /**
          * Hash is related to a data block.
          */
