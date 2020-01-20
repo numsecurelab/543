@@ -25,7 +25,7 @@ class SendTransactionTask(val transaction: FullTransaction) : PeerTask() {
     override fun handleMessage(message: IMessage): Boolean {
         val transactionRequested =
                 message is GetDataMessage &&
-                message.inventory.any { it.type == InventoryItem.MSG_TX && it.hash.contentEquals(transaction.header.hash) }
+                message.inventory.any { it.type == InventoryItem.MSG_TX || it.type == InventoryItem.MSG_WITNESS_TX && it.hash.contentEquals(transaction.header.hash) }
 
         if (transactionRequested) {
             requester?.send(TransactionMessage(transaction, 0))
